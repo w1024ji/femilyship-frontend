@@ -23,14 +23,21 @@ const TopicDetailPage = () => {
       setIsLoading(true);
       setError(null);
 
+      console.log(`Fetching topic with ID: ${id}`); // Debug log
+      
       // Fetch topic details (which includes essays array)
       const response = await axios.get(`/api/topics/${id}`);
+      
+      console.log('Topic API response:', response.data); // Debug log
       
       setTopic(response.data);
       // The API returns essays as part of the topic object
       setEssays(response.data.essays || []);
+      
+      console.log('Essays found:', response.data.essays?.length || 0); // Debug log
     } catch (err) {
       console.error('Error fetching data:', err);
+      console.log('Full error response:', err.response?.data); // Debug log
       
       if (err.response?.status === 404) {
         setError('Topic not found');
@@ -42,6 +49,7 @@ const TopicDetailPage = () => {
 
       // Fallback mock data for development
       if (process.env.NODE_ENV === 'development') {
+        console.log('Using fallback mock data'); // Debug log
         setTopic({
           id: parseInt(id),
           title_topic: 'Sample Topic',
