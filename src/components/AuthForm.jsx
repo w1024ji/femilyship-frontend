@@ -68,6 +68,7 @@ const AuthForm = ({ type }) => {
         // Check if login was successful (different ways to determine this)
         if (response.status === 200 || response.data.success || response.data.message === 'Login successful') {
           // Get the token
+          // accessToken으로 해야 성공
           const token = response.data.token || response.data.accessToken || response.data.jwt;
           
           if (token) {
